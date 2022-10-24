@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:sociallogin/screens/user_info.dart';
 import 'package:sociallogin/service/google_api.dart';
 
 class AuthScreen extends StatelessWidget {
@@ -12,28 +13,28 @@ class AuthScreen extends StatelessWidget {
       appBar: AppBar(
         actions: [
           IconButton(
-              onPressed: () {
-                GoogleSignInApi().logout().then((value) {
-                  print("logout");
-                  print(value);
-                });
+              onPressed: () async{
+                await GoogleSignInApi().logout();
               },
               icon: const Icon(Icons.logout))
         ],
       ),
       body: Center(
         child: ElevatedButton(
-          onPressed: signIn,
+          onPressed: () {
+            signIn(context);
+          },
           child: const Text("sign in with gmail"),
         ),
       ),
     );
   }
 
-  signIn() {
-    GoogleSignInApi().login().then((value) {
-      print('response');
-      print(value?.email);
-    });
+  signIn(BuildContext context) async {
+    final user = await GoogleSignInApi().login();
+    if (user != null) {
+      Navigator.pushReplacement(context,
+          MaterialPageRoute(builder: (ctx) => UserInfoScreen(user: user)));
+    }
   }
 }

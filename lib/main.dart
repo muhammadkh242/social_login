@@ -13,6 +13,11 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
+        textTheme: const TextTheme(
+          headlineLarge: TextStyle(
+            fontSize: 20,
+          ),
+        ),
         primarySwatch: Colors.blue,
       ),
       home: const AuthScreen(),
