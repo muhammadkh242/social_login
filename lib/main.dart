@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sociallogin/screens/auth.dart';
+import 'package:sociallogin/home.dart';
 
 void main() {
   runApp(const MyApp());
@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
         ),
         primarySwatch: Colors.blue,
       ),
-      home: const AuthScreen(),
+      home: const HomeScreen(),
     );
   }
 }
