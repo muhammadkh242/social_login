@@ -1,13 +1,8 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_login_facebook/flutter_login_facebook.dart';
-import 'package:sociallogin/face_book/fb_login_screen.dart';
 import 'package:sociallogin/google/google_user_info.dart';
-import 'package:sociallogin/linked_in/linked_in_login.dart';
-import 'package:sociallogin/service/google_api.dart';
+import 'package:sociallogin/widgets/signin_button.dart';
 
-import 'face_book/face_book_auth.dart';
+import 'google/google_api.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -15,57 +10,44 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        actions: [
-          IconButton(
-              onPressed: () async {
-                await GoogleSignInApi().logout();
-              },
-              icon: const Icon(Icons.logout))
-        ],
-      ),
-      body: Center(
+      appBar: AppBar(),
+      body: Padding(
+        padding: const EdgeInsets.all(32),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            ElevatedButton(
-              onPressed: () async {
-                final user = await GoogleSignInApi().login();
-                if (user != null) {
-                  Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                          builder: (ctx) => GoogleUserInfoScreen(user: user)));
-                }
-              },
-              child: const Text("sign in with gmail"),
+            Image.asset(
+              "assets/images/authentication.png",
+              scale: 2.4,
             ),
             const SizedBox(
-              height: 20,
+              height: 40,
             ),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.pushReplacement(context,
-                    MaterialPageRoute(builder: (ctx) => const FBScreen()));
-              },
-              child: const Text("sign in with FB"),
-            ),
+            SignInButton(onTap: () {
+              _signInWithGoogle(context);
+            }, assetPathName: 'Google'),
             const SizedBox(
-              height: 20,
+              height: 30,
             ),
-            ElevatedButton(
-              onPressed: () {
-                final plugin = FacebookLogin(debug: true);
-                Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                        builder: (ctx) => const LinkedInScreen()));
-              },
-              child: const Text("sign in with Linkedin"),
-            )
+            SignInButton(onTap: () {}, assetPathName: 'Facebook'),
+            const SizedBox(
+              height: 30,
+            ),
+            SignInButton(onTap: () {}, assetPathName: 'Linkedin'),
           ],
         ),
       ),
     );
+  }
+
+  _signInWithGoogle(BuildContext context) async {
+    final user = await GoogleSignInApi().login();
+    print("email");
+    print(user?.email);
+    if (user != null) {
+      Navigator.of(context).pushReplacement(MaterialPageRoute(
+          builder: (context) => GoogleUserInfoScreen(
+                user: user,
+              )));
+    }
   }
 }

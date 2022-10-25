@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-
-import '../service/google_api.dart';
-import '../home.dart';
+import 'package:sociallogin/google/google_api.dart';
 
 class GoogleUserInfoScreen extends StatelessWidget {
   const GoogleUserInfoScreen({Key? key, required this.user}) : super(key: key);
   final GoogleSignInAccount user;
+
+  static const String routeName = "GoogleUserInfoScreen";
 
   @override
   Widget build(BuildContext context) {
@@ -14,12 +14,10 @@ class GoogleUserInfoScreen extends StatelessWidget {
       appBar: AppBar(
         actions: [
           IconButton(
-              onPressed: () async {
-                await GoogleSignInApi().logout();
-                Navigator.push(
-                    context, MaterialPageRoute(builder: (ctx) => HomeScreen()));
+              onPressed: () {
+                GoogleSignInApi().logout();
               },
-              icon: const Icon(Icons.logout))
+              icon: const Icon(Icons.logout)),
         ],
       ),
       body: Padding(
