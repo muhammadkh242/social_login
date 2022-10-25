@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:linkedin_login/linkedin_login.dart';
+import 'package:sociallogin/user_info/user_info_screen.dart';
+
+import '../model/user.dart';
 
 const String redirectUrl = 'https://www.google.com/';
 const String clientId = '77owj50jx2ltl3';
@@ -15,9 +18,16 @@ class LinkedInScreen extends StatelessWidget {
         title: const Text('Linked In Login'),
       ),
       onGetUserProfile: (UserSucceededAction linkedinUser) {
-        print("onGetUserProfile");
-        print(linkedinUser.user.firstName);
-        print(linkedinUser.user.lastName);
+        User user = User(
+          name: linkedinUser.user.localizedFirstName!,
+          email: linkedinUser.user.email!.elements![0].handleDeep?.emailAddress,
+          avatarUrl: linkedinUser.user.profilePicture?.displayImageContent
+              ?.elements![0].identifiers![0].identifier,
+        );
+        Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+                builder: (context) => UserInfoScreen(user: user)));
       },
       onError: (UserFailedAction failedAction) {
         print("onError");

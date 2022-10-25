@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sociallogin/face_book/facebook_login.dart';
 import 'package:sociallogin/google/google_user_info.dart';
+import 'package:sociallogin/linked_in/linked_in_login.dart';
 import 'package:sociallogin/widgets/signin_button.dart';
 
 import 'face_book/fb_login_screen.dart';
@@ -41,7 +42,12 @@ class HomeScreen extends StatelessWidget {
             const SizedBox(
               height: 30,
             ),
-            SignInButton(onTap: () {}, assetPathName: 'Linkedin'),
+            SignInButton(
+                onTap: () {
+                  Navigator.of(context).pushReplacement(MaterialPageRoute(
+                      builder: (context) => const LinkedInScreen()));
+                },
+                assetPathName: 'Linkedin'),
           ],
         ),
       ),
