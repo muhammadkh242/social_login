@@ -9,7 +9,11 @@ class UserInfoScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        child: Center(child: Text(user.email!, style: TextStyle(color: Colors.white),)),
+        child: Center(
+            child: Text(
+          user.email!,
+          style: const TextStyle(color: Colors.white),
+        )),
       ),
     );
   }
