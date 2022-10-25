@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
+import 'package:sociallogin/model/user.dart';
 
 void main() {
   runApp(const FBScreen());
@@ -45,33 +46,24 @@ class _FBScreenState extends State<FBScreen> {
       setState(() {
         _userData = userData;
       });
+      print("_checkIfIsLogged");
+      print(userData);
     }
   }
 
-  void _printCredentials() {
-    print(
-      prettyPrint(_accessToken!.toJson()),
-    );
-  }
 
   Future<void> _login() async {
-    final LoginResult result = await FacebookAuth.instance.login(); // by default we request the email and the public profile
-
-    // loginBehavior is only supported for Android devices, for ios it will be ignored
-    // final result = await FacebookAuth.instance.login(
-    //   permissions: ['email', 'public_profile', 'user_birthday', 'user_friends', 'user_gender', 'user_link'],
-    //   loginBehavior: LoginBehavior
-    //       .DIALOG_ONLY, // (only android) show an authentication dialog instead of redirecting to facebook app
-    // );
-
+    final LoginResult result = await FacebookAuth.instance.login();
     if (result.status == LoginStatus.success) {
       _accessToken = result.accessToken;
-      _printCredentials();
-      // get the user data
-      // by default we get the userId, email,name and picture
       final userData = await FacebookAuth.instance.getUserData();
-      // final userData = await FacebookAuth.instance.getUserData(fields: "email,birthday,friends,gender,link");
       _userData = userData;
+      final picture = userData['picture'];
+      final User user = User(
+        name: userData['name'],
+        email: userData['email'],
+        avatarUrl: picture['url'].toString(),
+      );
     } else {
       print(result.status);
       print(result.message);
@@ -81,7 +73,6 @@ class _FBScreenState extends State<FBScreen> {
       _checking = false;
     });
   }
-
 
   Future<void> _logOut() async {
     await FacebookAuth.instance.logOut();
@@ -99,37 +90,39 @@ class _FBScreenState extends State<FBScreen> {
         ),
         body: _checking
             ? const Center(
-          child: CircularProgressIndicator(),
-        )
+                child: CircularProgressIndicator(),
+              )
             : SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                Text(
-                  _userData != null ? prettyPrint(_userData!) : "NO LOGGED",
-                ),
-                const SizedBox(height: 20),
-                _accessToken != null
-                    ? Text(
-                  prettyPrint(_accessToken!.toJson()),
-                )
-                    : Container(),
-                const SizedBox(height: 20),
-                CupertinoButton(
-                  color: Colors.blue,
-                  child: Text(
-                    _userData != null ? "LOGOUT" : "LOGIN",
-                    style: const TextStyle(color: Colors.white),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      Text(
+                        _userData != null
+                            ? prettyPrint(_userData!)
+                            : "NO LOGGED",
+                      ),
+                      const SizedBox(height: 20),
+                      _accessToken != null
+                          ? Text(
+                              prettyPrint(_accessToken!.toJson()),
+                            )
+                          : Container(),
+                      const SizedBox(height: 20),
+                      CupertinoButton(
+                        color: Colors.blue,
+                        child: Text(
+                          _userData != null ? "LOGOUT" : "LOGIN",
+                          style: const TextStyle(color: Colors.white),
+                        ),
+                        onPressed: _userData != null ? _logOut : _login,
+                      ),
+                      const SizedBox(height: 50),
+                    ],
                   ),
-                  onPressed: _userData != null ? _logOut : _login,
                 ),
-                const SizedBox(height: 50),
-              ],
-            ),
-          ),
-        ),
+              ),
       ),
     );
   }

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:sociallogin/face_book/facebook_login.dart';
 import 'package:sociallogin/google/google_user_info.dart';
 import 'package:sociallogin/widgets/signin_button.dart';
 
+import 'face_book/fb_login_screen.dart';
 import 'google/google_api.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -22,13 +24,20 @@ class HomeScreen extends StatelessWidget {
             const SizedBox(
               height: 40,
             ),
-            SignInButton(onTap: () {
-              _signInWithGoogle(context);
-            }, assetPathName: 'Google'),
+            SignInButton(
+                onTap: () {
+                  _signInWithGoogle(context);
+                },
+                assetPathName: 'Google'),
             const SizedBox(
               height: 30,
             ),
-            SignInButton(onTap: () {}, assetPathName: 'Facebook'),
+            SignInButton(
+                onTap: () {
+                  Navigator.of(context).pushReplacement(MaterialPageRoute(
+                      builder: (context) => const FaceBookScreen()));
+                },
+                assetPathName: 'Facebook'),
             const SizedBox(
               height: 30,
             ),
