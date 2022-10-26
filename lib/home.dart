@@ -1,8 +1,10 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:sociallogin/consants.dart';
 import 'package:sociallogin/face_book/facebook_login.dart';
 import 'package:sociallogin/google/google_login.dart';
+import 'package:sociallogin/instagram/instagram_login.dart';
 import 'package:sociallogin/linked_in/linkedin_auth_code.dart';
 import 'package:sociallogin/twitter/twitter_login.dart';
 import 'package:sociallogin/user_info/user_info_screen.dart';
@@ -34,10 +36,11 @@ class HomeScreen extends StatelessWidget {
               SignInButton(
                   onTap: () {
                     Navigator.of(context).pushReplacement(MaterialPageRoute(
-                        builder: (context) => const GoogleScreen()));                  },
+                        builder: (context) => const GoogleScreen()));
+                  },
                   assetPathName: 'Google'),
               const SizedBox(
-                height: 30,
+                height: 10,
               ),
               SignInButton(
                   onTap: () {
@@ -46,7 +49,7 @@ class HomeScreen extends StatelessWidget {
                   },
                   assetPathName: 'Facebook'),
               const SizedBox(
-                height: 30,
+                height: 10,
               ),
               SignInButton(
                   onTap: () {
@@ -55,19 +58,27 @@ class HomeScreen extends StatelessWidget {
                   },
                   assetPathName: 'Linkedin'),
               const SizedBox(
-                height: 30,
+                height: 10,
               ),
               SignInButton(
                   onTap: () {
                     Navigator.of(context).pushReplacement(MaterialPageRoute(
                         builder: (context) => const TwitterScreen()));
                   },
-                  assetPathName: 'Twitter')
+                  assetPathName: 'Twitter'),
+              const SizedBox(
+                height: 10,
+              ),
+              SignInButton(
+                  onTap: () {
+                    Navigator.of(context).pushReplacement(MaterialPageRoute(
+                        builder: (context) => const InstagramScreen()));
+                  },
+                  assetPathName: 'Instagram'),
             ],
           ),
         ),
       ),
     );
   }
-
 }

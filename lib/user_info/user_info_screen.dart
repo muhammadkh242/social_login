@@ -40,11 +40,11 @@ class UserInfoScreen extends StatelessWidget {
               const SizedBox(
                 height: 40,
               ),
-              TextContainer(text: user.name!),
+              TextContainer(text: user.name ?? ""),
               const SizedBox(
                 height: 40,
               ),
-              TextContainer(text: user.email!),
+              TextContainer(text: user.email ?? ""),
             ],
           ),
         ),
