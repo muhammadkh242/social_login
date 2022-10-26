@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:sociallogin/google/google_api.dart';
+import 'package:sociallogin/model/user.dart';
 
 class GoogleUserInfoScreen extends StatelessWidget {
   const GoogleUserInfoScreen({Key? key, required this.user}) : super(key: key);
-  final GoogleSignInAccount user;
+  final User user;
 
   static const String routeName = "GoogleUserInfoScreen";
 
@@ -27,16 +28,19 @@ class GoogleUserInfoScreen extends StatelessWidget {
             children: [
               CircleAvatar(
                 radius: 90,
-                backgroundImage: NetworkImage(user.photoUrl!),
+                backgroundImage: NetworkImage(user.avatarUrl!),
               ),
               const SizedBox(
                 height: 10,
               ),
-              Text(user.displayName!),
+              Text(user.name!),
               const SizedBox(
                 height: 10,
               ),
-              Text(user.email),
+              Text(
+                user.email!,
+                style: const TextStyle(color: Colors.white),
+              ),
             ],
           ),
         ),

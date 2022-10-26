@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:sociallogin/face_book/facebook_login.dart';
 import 'package:sociallogin/google/google_user_info.dart';
 import 'package:sociallogin/linked_in/linked_in_login.dart';
+import 'package:sociallogin/model/user.dart';
 import 'package:sociallogin/widgets/signin_button.dart';
 import 'google/google_api.dart';
 
@@ -53,10 +54,14 @@ class HomeScreen extends StatelessWidget {
   }
 
   _signInWithGoogle(BuildContext context) async {
-    final user = await GoogleSignInApi().login();
-    print("email");
-    print(user?.email);
-    if (user != null) {
+    final account = await GoogleSignInApi().login();
+
+    if (account != null) {
+      User user = User(
+        name: account.displayName,
+        email: account.email,
+        avatarUrl: account.photoUrl,
+      );
       Navigator.of(context).pushReplacement(MaterialPageRoute(
           builder: (context) => GoogleUserInfoScreen(
                 user: user,

@@ -1,5 +1,5 @@
 class User {
-  String name;
+  String? name;
   String? email;
   String? avatarUrl;
 
