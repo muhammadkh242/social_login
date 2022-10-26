@@ -17,7 +17,7 @@ class _FaceBookLoginState extends State<FaceBookScreen> {
 
   @override
   void initState() {
-    _login();
+    _signInWithFacebook();
     super.initState();
   }
 
@@ -30,7 +30,7 @@ class _FaceBookLoginState extends State<FaceBookScreen> {
             : UserInfoScreen(user: user!);
   }
 
-  _login() async {
+  _signInWithFacebook() async {
     final LoginResult result = await FacebookAuth.instance.login();
     if (result.status == LoginStatus.success) {
       final userData = await FacebookAuth.instance.getUserData();

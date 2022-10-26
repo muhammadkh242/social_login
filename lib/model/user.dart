@@ -16,4 +16,5 @@ enum SocialPlatform {
   google,
   facebook,
   linkedin,
+  twitter,
 }
