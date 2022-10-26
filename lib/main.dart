@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sociallogin/google/google_user_info.dart';
+import 'package:sociallogin/user_info/user_info_screen.dart';
 import 'package:sociallogin/home.dart';
 
 void main() {

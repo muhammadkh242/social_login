@@ -63,6 +63,7 @@ class _FBScreenState extends State<FBScreen> {
         name: userData['name'],
         email: userData['email'],
         avatarUrl: picture['url'].toString(),
+        socialPlatform: SocialPlatform.facebook
       );
     } else {
       print(result.status);

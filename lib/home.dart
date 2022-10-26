@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sociallogin/face_book/facebook_login.dart';
-import 'package:sociallogin/google/google_user_info.dart';
+import 'package:sociallogin/linked_in/linkedin_auth_code.dart';
+import 'package:sociallogin/user_info/user_info_screen.dart';
 import 'package:sociallogin/linked_in/linked_in_login.dart';
 import 'package:sociallogin/model/user.dart';
 import 'package:sociallogin/widgets/signin_button.dart';
@@ -44,7 +45,7 @@ class HomeScreen extends StatelessWidget {
             SignInButton(
                 onTap: () {
                   Navigator.of(context).pushReplacement(MaterialPageRoute(
-                      builder: (context) => const LinkedInScreen()));
+                      builder: (context) => LinkedInScreen()));
                 },
                 assetPathName: 'Linkedin'),
           ],
@@ -61,9 +62,10 @@ class HomeScreen extends StatelessWidget {
         name: account.displayName,
         email: account.email,
         avatarUrl: account.photoUrl,
+        socialPlatform: SocialPlatform.google
       );
       Navigator.of(context).pushReplacement(MaterialPageRoute(
-          builder: (context) => GoogleUserInfoScreen(
+          builder: (context) => UserInfoScreen(
                 user: user,
               )));
     }

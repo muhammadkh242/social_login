@@ -35,11 +35,13 @@ class _FaceBookLoginState extends State<FaceBookScreen> {
     if (result.status == LoginStatus.success) {
       final userData = await FacebookAuth.instance.getUserData();
       final picture = userData['picture'];
+      print("avatar");
+      print(picture['data']['url']);
       user = User(
-        name: userData['name'],
-        email: userData['email'],
-        avatarUrl: picture['url'].toString(),
-      );
+          name: userData['name'],
+          email: userData['email'],
+          avatarUrl: picture['data']['url'].toString(),
+          socialPlatform: SocialPlatform.facebook);
     }
     setState(() {
       loggingIn = false;
