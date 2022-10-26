@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sociallogin/consants.dart';
 import 'package:twitter_login/twitter_login.dart';
 
 import '../model/user.dart';
@@ -32,9 +33,9 @@ class _TwitterScreenState extends State<TwitterScreen> {
 
   _signInWithTwitter() async {
     final twitterLogin = TwitterLogin(
-      apiKey: "hrJhQ50OKFfiwxhFbaB6GWqP4",
-      apiSecretKey: "f7kWLOe1PTQ9mbDrEdVP4WfFOr5uwdtmclxlvhZA8zy5pEXSVx",
-      redirectURI: "sociallogin://",
+      apiKey: apiKey,
+      apiSecretKey: apiSecret,
+      redirectURI: twitterRedirectUrl,
     );
     final loginResult = await twitterLogin.login();
     if (loginResult.status == TwitterLoginStatus.loggedIn) {

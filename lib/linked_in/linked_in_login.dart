@@ -3,11 +3,10 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:linkedin_login/linkedin_login.dart';
 import 'package:sociallogin/user_info/user_info_screen.dart';
+import '../consants.dart';
 import '../model/user.dart';
 
-const String redirectUrl = 'https://www.google.com/';
-const String clientId = '77owj50jx2ltl3';
-const String clientSecret = 'fnQaBDaGqSDF2xPy';
+
 
 class LinkedInScreen extends StatelessWidget {
   LinkedInScreen({Key? key}) : super(key: key);
