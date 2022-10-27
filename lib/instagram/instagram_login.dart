@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 import 'package:http/http.dart' as http;
-
 import 'package:flutter/material.dart';
 import 'package:sociallogin/consants.dart';
 import 'package:sociallogin/user_info/user_info_screen.dart';
@@ -34,18 +33,22 @@ class _InstagramScreenState extends State<InstagramScreen> {
                 onPageStarted: (String url) {
                   print('Page started loading: $url');
                 },
-                onPageFinished: (String url) {
-                  print('Page finished loading: $url');
-                  if (url != instagramLoginUrl) {
-                    //get code
-                    Uri uri = Uri.parse(url);
+                navigationDelegate: (NavigationRequest request) {
+                  print("NAVIGATION");
+                  print(request.url);
+
+                  if (request.url.startsWith(instagramRedirectUrl)) {
+                    Uri uri = Uri.parse(request.url);
                     final code = uri.queryParameters['code'];
                     if (code != null) {
-                      _getUserToken(code);
+                      _signInWithInstagram(code);
                     }
-                    //post
-
+                    return NavigationDecision.prevent;
                   }
+                  return NavigationDecision.navigate;
+                },
+                onPageFinished: (String url) {
+                  print('Page finished loading: $url');
                 },
                 gestureNavigationEnabled: true,
               )
@@ -57,7 +60,7 @@ class _InstagramScreenState extends State<InstagramScreen> {
           );
   }
 
-  _getUserToken(String code) async {
+  _signInWithInstagram(String code) async {
     setState(() {
       loading = true;
     });
