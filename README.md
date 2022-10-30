@@ -1,5 +1,5 @@
 # Social Login
 
-flutter application for logging in using different social media accounts
+flutter application for logging in using different social media accounts (POC)
 
 
