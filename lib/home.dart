@@ -1,7 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:sociallogin/face_book/facebook_login.dart';
+import 'package:sociallogin/facebook/facebook_login.dart';
 import 'package:sociallogin/google/google_login.dart';
 import 'package:sociallogin/instagram/instagram_login.dart';
 import 'package:sociallogin/twitter/twitter_login.dart';
